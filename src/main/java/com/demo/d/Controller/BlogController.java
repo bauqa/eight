@@ -35,9 +35,12 @@ public class BlogController {
     public  String newPostpost(@RequestParam String title,@RequestParam String img,@RequestParam String full_text,@RequestParam String anons,  Model model){
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-
-        Blog blog = new Blog(title,img,full_text,timestamp,anons);
-
+        if(img!=null){
+            Blog blog = new Blog(title,img,full_text,timestamp,anons);
+        }
+        else{
+            Blog blog = new Blog(title,"https://www.truesupreme.com/wp-content/uploads/2017/04/default-image.jpg",full_text,timestamp,anons);
+        }
         blogRepository.save(blog);
         return "redirect:/";
     }
